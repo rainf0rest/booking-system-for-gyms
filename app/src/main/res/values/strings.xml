@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">BmobTest2</string>
+    <string name="app_name">体育馆预约系统</string>
+    <string name="operate">时间段7-22</string>
+
 </resources>
