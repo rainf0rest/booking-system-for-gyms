@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     public void done(BmobUser bmobUser, BmobException e) {
                         if(e==null){
                             Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, BookActivity.class);
+                            Intent intent = new Intent(MainActivity.this, ChooseActivity.class);
                             startActivity(intent);
                             //toast("登录成功:");
                             //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息

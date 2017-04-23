@@ -55,7 +55,7 @@ public class BookActivity extends Activity {
             @Override
             public void onClick(View view) {
                 finish();
-                Toast.makeText(BookActivity.this, "注销成功！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BookActivity.this, "go back！", Toast.LENGTH_SHORT).show();
             }
         });
 

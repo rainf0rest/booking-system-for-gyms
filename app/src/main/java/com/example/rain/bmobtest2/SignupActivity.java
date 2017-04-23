@@ -54,7 +54,7 @@ public class SignupActivity extends Activity {
                     public void done(BmobUser s, BmobException e) {
                         if(e==null){
                             Toast.makeText(SignupActivity.this, "success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignupActivity.this, BookActivity.class);
+                            Intent intent = new Intent(SignupActivity.this, ChooseActivity.class);
                             startActivity(intent);
                         }else{
                             Toast.makeText(SignupActivity.this, "failure", Toast.LENGTH_SHORT).show();
