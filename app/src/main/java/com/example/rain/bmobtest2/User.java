@@ -7,22 +7,18 @@ import cn.bmob.v3.BmobObject;
  */
 
 public class User extends BmobObject {
-    private String name;
-    private int id;
+    private int money;
 
-    public String getName() {
-        return name;
+    public User() {
+        money = 0;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getMoney() {
+        return money;
     }
 
-    public int getId() {
-        return id;
+    public void setMoney(int money) {
+        this.money = money;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }

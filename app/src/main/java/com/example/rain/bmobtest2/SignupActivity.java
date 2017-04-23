@@ -49,9 +49,9 @@ public class SignupActivity extends Activity {
                 bmobUser.setPassword(password);
                 bmobUser.setEmail(Email);
 
-                bmobUser.signUp(new SaveListener<BmobUser>() {
+                bmobUser.signUp(new SaveListener<User>() {
                     @Override
-                    public void done(BmobUser s, BmobException e) {
+                    public void done(User s, BmobException e) {
                         if(e==null){
                             Toast.makeText(SignupActivity.this, "success", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SignupActivity.this, ChooseActivity.class);

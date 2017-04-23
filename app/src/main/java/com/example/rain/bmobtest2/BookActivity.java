@@ -77,12 +77,15 @@ public class BookActivity extends Activity {
                             Toast.makeText(BookActivity.this, "查询成功：共"+object.size()+"条数据。", Toast.LENGTH_SHORT).show();
                             for (Equipment equipment : object) {
                                 Map<String, Object> listem = new HashMap<String, Object>();
-                                listem.put("ID", equipment.getEqID());
-                                listem.put("InID", equipment.getEqInID());
-                                listem.put("Name", equipment.getEqName());
+                                listem.put("ID", "器材编号：" + equipment.getEqID());
+                                listem.put("InID", "内部编号：" + equipment.getEqInID());
+                                listem.put("Name",  equipment.getEqName());
                                 //listem.put("Number", equipment.getEqNumber());
-                                listem.put("Free", equipment.getEqfree());
-                                listem.put("Price", equipment.getEqprice());
+                                if(equipment.getEqfree() == 1)
+                                    listem.put("Free", "可用");
+                                else
+                                    listem.put("Free", "不可用");
+                                listem.put("Price", "器材租价：" + equipment.getEqprice() + "元");
                                 listems.add(listem);
                             }
                             SimpleAdapter simplead = new SimpleAdapter(BookActivity.this, listems,
