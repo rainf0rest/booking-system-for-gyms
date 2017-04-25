@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,8 +23,10 @@ import java.util.List;
 import java.util.Map;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by rain on 2017/4/21.
@@ -35,6 +40,175 @@ public class BookActivity extends Activity {
     ImageView imageBack;
     private ListView bookListView;
     private AlertDialog.Builder builder;
+    //static EqBookTime myEqBookTime;
+    private CalThread calThread;
+    String myEqID;
+
+    class CalThread extends Thread {
+        public Handler myHandler;
+
+        public void run() {
+            Looper.prepare();
+            myHandler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    if (msg.what == 0x001) {
+                        myEqID = msg.getData().getString("data");
+                        Toast.makeText(BookActivity.this, "目标表ID：" + myEqID, Toast.LENGTH_SHORT).show();
+                    }
+                    else if(msg.what == 0x002) {
+                        Toast.makeText(BookActivity.this, "目标表ID：" + myEqID + "信息0x002" , Toast.LENGTH_SHORT).show();
+                        int i = msg.getData().getInt("data");
+                        User user = BmobUser.getCurrentUser(User.class);
+                        EqBookTime eq = new EqBookTime();
+                        switch (i) {
+                            case 0:
+                                eq.setTime7(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 1:
+                                eq.setTime8(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 2:
+                                eq.setTime9(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 3:
+                                eq.setTime10(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 4:
+                                eq.setTime11(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 5:
+                                eq.setTime12(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 6:
+                                eq.setTime13(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 7:
+                                eq.setTime14(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 8:
+                                eq.setTime15(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 9:
+                                eq.setTime16(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 10:
+                                eq.setTime17(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 11:
+                                eq.setTime18(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 12:
+                                eq.setTime19(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 13:
+                                eq.setTime20(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            case 14:
+                                eq.setTime21(user.getObjectId());
+                                eq.update(myEqID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            };
+            Looper.loop();
+        }
+    }//0x124
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +245,7 @@ public class BookActivity extends Activity {
                 query.addWhereEqualTo("EqName", name);
                 query.findObjects(new FindListener<Equipment>() {
                     @Override
-                    public void done(List<Equipment> object, BmobException e) {
+                    public void done(final List<Equipment> object, BmobException e) {
                         if(e==null){
                             //toast("查询成功：共"+object.size()+"条数据。");
                             Toast.makeText(BookActivity.this, "查询成功：共"+object.size()+"条数据。", Toast.LENGTH_SHORT).show();
@@ -96,11 +270,14 @@ public class BookActivity extends Activity {
                             bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        showBookDia(i);
+                                    //int id = object.get(i).getEqID();
+                                    //int inId = object.get(i).getEqInID();
+                                    String id = object.get(i).getObjectId();
+                                    showBookDia(i, id);
+                                    //Toast.makeText(BookActivity.this, "你选择了器材编号为：" + id + " / " + inId + "的器材", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }else{
-                            //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                             Toast.makeText(BookActivity.this, "查询失败。", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -109,55 +286,60 @@ public class BookActivity extends Activity {
         });
 
 
-
-
-
-        /*
-
-        findbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textView.setText(" ");
-                BmobQuery<Equipment> query = new BmobQuery<Equipment>();
-                String name = dateEditText.getText().toString();
-                query.addWhereEqualTo("EqName", name);
-                query.findObjects(new FindListener<Equipment>() {
-                    @Override
-                    public void done(List<Equipment> object, BmobException e) {
-                        if(e==null){
-                            //toast("查询成功：共"+object.size()+"条数据。");
-                            Toast.makeText(BookActivity.this, "查询成功：共"+object.size()+"条数据。", Toast.LENGTH_SHORT).show();
-                            for (Equipment equipment : object) {
-                                textView.append("name:" + equipment.getEqName() + "\n");
-                                textView.append("ID:" + equipment.getEqID() + "\n");
-                                textView.append("InID:" + equipment.getEqInID() + "\n");
-                                textView.append("number:" + equipment.getEqNumber() + "\n");
-                                textView.append("free:" + equipment.getEqfree() + "\n");
-                                textView.append("price:" + equipment.getEqprice() + "\n");
-                            }
-                        }else{
-                            //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
-                            Toast.makeText(BookActivity.this, "查询失败。", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });*/
+        calThread = new CalThread();
+        calThread.start();
 
     }
 
-    private void showBookDia(final int postion) {
+    private void showBookDia(final int postion, final String id) {
         builder = new AlertDialog.Builder(this);
         builder.setIcon(R.drawable.ok);
         builder.setTitle(R.string.operate);
 
+
+        //final EqBookTime eqBookTime = eqBookTimes.get(0);
+        //myEqBookTime = eqBookTimes.get(0);
+        BmobQuery<EqBookTime> query = new BmobQuery<EqBookTime>();
+        query.addWhereEqualTo("EqID", id);
+        query.findObjects(new FindListener<EqBookTime>() {
+            @Override
+            public void done(List<EqBookTime> list, BmobException e) {
+                if(e == null){
+                    for(EqBookTime eqBookTime : list) {
+                        Toast.makeText(getApplicationContext(), "ObjectId: "+ eqBookTime.getObjectId(), Toast.LENGTH_SHORT).show();
+                        String eqBid = eqBookTime.getObjectId();
+                        Message msg = new Message();
+                        msg.what = 0x001;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("data", eqBid);
+                        msg.setData(bundle);
+                        calThread.myHandler.sendMessage(msg);
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "fail to find the eq: " + id, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         final String[] Items={"7-8","8-9","9-10","10-11","11-12","12-13","13-14",
                 "14-15", "15-16", "16-17", "17-18", "18-19", "19-20", "20-21", "21-22"};
+
+
+        //final String[] Items = Items1;
+
         builder.setItems(Items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //Toast.makeText(getApplicationContext(), "You clicked "+Items[i], Toast.LENGTH_SHORT).show();
-                Toast.makeText(BookActivity.this, "预约成功："+""+ "时间为：" + Items[i], Toast.LENGTH_SHORT).show();
+                Message msg = new Message();
+                msg.what = 0x002;
+                Bundle bundle = new Bundle();
+                bundle.putInt("data", i);
+                msg.setData(bundle);
+                calThread.myHandler.sendMessage(msg);
+
+                //Toast.makeText(BookActivity.this, "预约成功："+""+ "时间为：" + Items[i] + "预约客户：" + id, Toast.LENGTH_SHORT).show();
             }
         });
 

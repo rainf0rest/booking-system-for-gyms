@@ -6,11 +6,11 @@ import cn.bmob.v3.BmobObject;
  * Created by rain on 2017/4/25.
  */
 
-public class Bookrecord extends BmobObject {
+public class BookRecord extends BmobObject {
     private String UserID;
-    private int EqID;
-    private int EqInID;
+    private String EqID;
     private String Time;
+    private String date;
 
     public String getUserID() {
         return UserID;
@@ -20,20 +20,12 @@ public class Bookrecord extends BmobObject {
         UserID = userID;
     }
 
-    public int getEqID() {
+    public String getEqID() {
         return EqID;
     }
 
-    public void setEqID(int eqID) {
+    public void setEqID(String eqID) {
         EqID = eqID;
-    }
-
-    public int getEqInID() {
-        return EqInID;
-    }
-
-    public void setEqInID(int eqInID) {
-        EqInID = eqInID;
     }
 
     public String getTime() {
@@ -42,5 +34,13 @@ public class Bookrecord extends BmobObject {
 
     public void setTime(String time) {
         Time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

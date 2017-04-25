@@ -7,25 +7,16 @@ import cn.bmob.v3.BmobObject;
  */
 
 public class EqBookTime extends BmobObject {
-    private int EqID;
-    private int EqInID;
+    private String EqID;
     private String Time7, Time8, Time9, Time10, Time11, Time12, Time13, Time14,
             Time15, Time16, Time17, Time18, Time19, Time20, Time21, Time22;
 
-    public int getEqID() {
+    public String getEqID() {
         return EqID;
     }
 
-    public void setEqID(int eqID) {
+    public void setEqID(String eqID) {
         EqID = eqID;
-    }
-
-    public int getEqInID() {
-        return EqInID;
-    }
-
-    public void setEqInID(int eqInID) {
-        EqInID = eqInID;
     }
 
     public String getTime7() {

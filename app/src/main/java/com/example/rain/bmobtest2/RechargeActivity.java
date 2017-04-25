@@ -32,22 +32,7 @@ public class RechargeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 int money = Integer.parseInt(rechargeMoney.getText().toString());
-                //Toast.makeText(RechargeActivity.this, "success to recharge " + money + " 元！", Toast.LENGTH_SHORT).show();
-                /*
-                BmobUser user = BmobUser.getCurrentUser();
-                User newUser = new User();
-                newUser.setMoney(newUser.getMoney() + money);
-                newUser.update(user.getObjectId(), new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if(e==null){
-                            Toast.makeText(RechargeActivity.this, "success to recharge ", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(RechargeActivity.this, "fail to recharge ", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                 */
+
                 final User newUser = BmobUser.getCurrentUser(User.class);
                 newUser.setMoney(newUser.getMoney() + money);
                 newUser.update(newUser.getObjectId(), new UpdateListener() {
