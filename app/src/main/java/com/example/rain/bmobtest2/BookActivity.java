@@ -17,6 +17,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
@@ -53,21 +55,34 @@ public class BookActivity extends Activity {
                 @Override
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
+                    SimpleDateFormat    sDateFormat    =   new SimpleDateFormat("yyyy-MM-dd    hh:mm:ss");
+                    String    date    =    sDateFormat.format(new    java.util.Date());
                     if (msg.what == 0x001) {
                         myEqID = msg.getData().getString("data");
-                        Toast.makeText(BookActivity.this, "目标表ID：" + myEqID, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(BookActivity.this, "目标表ID：" + myEqID, Toast.LENGTH_SHORT).show();
                     }
                     else if(msg.what == 0x002) {
-                        Toast.makeText(BookActivity.this, "目标表ID：" + myEqID + "信息0x002" , Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(BookActivity.this, "目标表ID：" + myEqID + "信息0x002" , Toast.LENGTH_SHORT).show();
                         int i = msg.getData().getInt("data");
                         User user = BmobUser.getCurrentUser(User.class);
                         EqBookTime eq = new EqBookTime();
+                        BookRecord bookRecord = new BookRecord();
                         switch (i) {
                             case 0:
                                 eq.setTime7(user.getObjectId());
                                 eq.update(myEqID, new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
+
+                                    }
+                                });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("7-8");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
 
                                     }
                                 });
@@ -80,12 +95,32 @@ public class BookActivity extends Activity {
 
                                     }
                                 });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("8-9");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 break;
                             case 2:
                                 eq.setTime9(user.getObjectId());
                                 eq.update(myEqID, new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
+
+                                    }
+                                });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("9-10");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
 
                                     }
                                 });
@@ -98,12 +133,32 @@ public class BookActivity extends Activity {
 
                                     }
                                 });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("10-11");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 break;
                             case 4:
                                 eq.setTime11(user.getObjectId());
                                 eq.update(myEqID, new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
+
+                                    }
+                                });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("11-12");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
 
                                     }
                                 });
@@ -116,12 +171,32 @@ public class BookActivity extends Activity {
 
                                     }
                                 });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("12-13");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 break;
                             case 6:
                                 eq.setTime13(user.getObjectId());
                                 eq.update(myEqID, new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
+
+                                    }
+                                });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("13-14");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
 
                                     }
                                 });
@@ -134,12 +209,32 @@ public class BookActivity extends Activity {
 
                                     }
                                 });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("14-15");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 break;
                             case 8:
                                 eq.setTime15(user.getObjectId());
                                 eq.update(myEqID, new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
+
+                                    }
+                                });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("15-16");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
 
                                     }
                                 });
@@ -152,12 +247,32 @@ public class BookActivity extends Activity {
 
                                     }
                                 });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("16-17");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 break;
                             case 10:
                                 eq.setTime17(user.getObjectId());
                                 eq.update(myEqID, new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
+
+                                    }
+                                });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("17-18");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
 
                                     }
                                 });
@@ -170,12 +285,32 @@ public class BookActivity extends Activity {
 
                                     }
                                 });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("18-19");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 break;
                             case 12:
                                 eq.setTime19(user.getObjectId());
                                 eq.update(myEqID, new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
+
+                                    }
+                                });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("19-20");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
 
                                     }
                                 });
@@ -188,12 +323,32 @@ public class BookActivity extends Activity {
 
                                     }
                                 });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("20-21");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 break;
                             case 14:
                                 eq.setTime21(user.getObjectId());
                                 eq.update(myEqID, new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
+
+                                    }
+                                });
+                                bookRecord.setEqID(eq.getEqID());
+                                bookRecord.setUserID(user.getObjectId());
+                                bookRecord.setTime("21-22");
+                                bookRecord.setDate(date);
+                                bookRecord.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
 
                                     }
                                 });

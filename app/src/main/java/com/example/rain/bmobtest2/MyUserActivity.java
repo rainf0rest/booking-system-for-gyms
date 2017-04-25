@@ -26,7 +26,7 @@ public class MyUserActivity extends Activity {
         setContentView(R.layout.my_user);
 
         userDataTextView = (TextView) findViewById(R.id.userDataText);
-        /*
+
         BmobUser bmobUser = BmobUser.getCurrentUser();
 
         userDataTextView.setText("");
@@ -34,24 +34,7 @@ public class MyUserActivity extends Activity {
         userDataTextView.append("用户邮箱：" + bmobUser.getEmail() + "\n");
         //userDataTextView.append("用户余额：" + bmobUser.getUsername() + "\n");
 
-        */
 
-        String id = "jGpv888d";
-        BmobQuery<EqBookTime> query = new BmobQuery<EqBookTime>();
-        query.addWhereEqualTo("EqID", id);
-        query.findObjects(new FindListener<EqBookTime>() {
-            @Override
-            public void done(List<EqBookTime> list, BmobException e) {
-                if(e == null){
-                    for(EqBookTime eqBookTime : list) {
-                        //userDataTextView.append(eqBookTime.get);
-                    }
-                }
-                else {
-                    //Toast.makeText(getApplicationContext(), "fail to find the eq: " + id, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
 }
