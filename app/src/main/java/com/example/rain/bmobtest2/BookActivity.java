@@ -411,7 +411,7 @@ public class BookActivity extends Activity {
                     public void done(final List<Equipment> object, BmobException e) {
                         if(e==null){
                             //toast("查询成功：共"+object.size()+"条数据。");
-                            Toast.makeText(BookActivity.this, "查询成功：共"+object.size()+"条数据。", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(BookActivity.this, "查询成功：共"+object.size()+"条数据。", Toast.LENGTH_SHORT).show();
                             for (Equipment equipment : object) {
                                 Map<String, Object> listem = new HashMap<String, Object>();
                                 listem.put("ID", "器材编号：" + equipment.getEqID());
@@ -442,6 +442,35 @@ public class BookActivity extends Activity {
                             });
                         }else{
                             Toast.makeText(BookActivity.this, "查询失败。", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+        bookedbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listems.clear();
+                BmobQuery<BookRecord> query = new BmobQuery<BookRecord>();
+                User user = BmobUser.getCurrentUser(User.class);
+                query.addWhereEqualTo("UserID", user.getObjectId());
+                query.findObjects(new FindListener<BookRecord>() {
+                    @Override
+                    public void done(List<BookRecord> list, BmobException e) {
+                        if(e == null) {
+                            for(BookRecord bookRecord : list) {
+                                Map<String, Object> listem = new HashMap<String, Object>();
+                                listem.put("UserID", "用户ID：" + bookRecord.getUserID());
+                                listem.put("EqID", "器材ID" + bookRecord.getEqID());
+                                listem.put("Time", "预约时段" + bookRecord.getTime());
+                                listem.put("Date", "日期" + bookRecord.getDate());
+                                listems.add(listem);
+                            }
+                            SimpleAdapter simplead = new SimpleAdapter(BookActivity.this, listems,
+                                    R.layout.book_list_item, new String[] { "UserID", "EqID", "Time", "Date"},
+                                    new int[] {R.id.eqID,R.id.eqInID,R.id.eqName, R.id.eqPrice});
+                            bookListView.setAdapter(simplead);
                         }
                     }
                 });
