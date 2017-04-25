@@ -24,19 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bmob.initialize(this, "e038ac3ba7a96b5c39372ee8589e1426");
 
-        /*User user = new User();
-        user.setId(22);
-        user.setName("rain");
-        user.save(new SaveListener<String>() {
-            @Override
-            public void done(String s, BmobException e) {
-                if(e==null){
-                    Toast.makeText(MainActivity.this, "添加数据成功，返回objectId为：" + s, Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(MainActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
         setContentView(R.layout.activity_main);
 
         loginbtn = (Button) findViewById(R.id.loginbtn);
@@ -44,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         nameEditText = (EditText) findViewById(R.id.userName);
         passEditText = (EditText) findViewById(R.id.password);
 
-        BmobUser bmobUser = new BmobUser();
+        //BmobUser bmobUser = new BmobUser();
 
         regbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,12 +48,14 @@ public class MainActivity extends AppCompatActivity {
                 String name = nameEditText.getText().toString();
                 String password = passEditText.getText().toString();
 
+                //判断非空
                 if(TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
                     Toast.makeText(MainActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                BmobUser user = new BmobUser();
+                //BmobUser user = new BmobUser();
+                User user = new User();
                 user.setUsername(name);
                 user.setPassword(password);
 

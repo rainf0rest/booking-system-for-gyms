@@ -1,17 +1,14 @@
 package com.example.rain.bmobtest2;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobUser;
 
 /**
  * Created by rain on 2017/4/21.
  */
 
-public class User extends BmobObject {
+public class User extends BmobUser {
     private int money;
-
-    public User() {
-        money = 0;
-    }
 
     public int getMoney() {
         return money;

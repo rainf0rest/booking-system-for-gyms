@@ -44,10 +44,12 @@ public class SignupActivity extends Activity {
                     return;
                 }
 
-                BmobUser bmobUser = new BmobUser();
+                //BmobUser bmobUser = new BmobUser();
+                User bmobUser = new User();
                 bmobUser.setUsername(name);
                 bmobUser.setPassword(password);
                 bmobUser.setEmail(Email);
+                bmobUser.setMoney(0);
 
                 bmobUser.signUp(new SaveListener<User>() {
                     @Override
