@@ -9,7 +9,7 @@ import cn.bmob.v3.BmobObject;
 public class EqBookTime extends BmobObject {
     private String EqID;
     private String Time7, Time8, Time9, Time10, Time11, Time12, Time13, Time14,
-            Time15, Time16, Time17, Time18, Time19, Time20, Time21, Time22;
+            Time15, Time16, Time17, Time18, Time19, Time20, Time21;
 
     public String getEqID() {
         return EqID;
@@ -139,11 +139,110 @@ public class EqBookTime extends BmobObject {
         Time21 = time21;
     }
 
-    public String getTime22() {
-        return Time22;
+    public String getTimeOfN(int i) {
+        String s = "error";
+        switch (i) {
+            case 0:
+                s = getTime7();
+                break;
+            case 1:
+                s = getTime8();
+                break;
+            case 2:
+                s = getTime9();
+                break;
+            case 3:
+                s = getTime10();
+                break;
+            case 4:
+                s = getTime11();
+                break;
+            case 5:
+                s = getTime12();
+                break;
+            case 6:
+                s = getTime13();
+                break;
+            case 7:
+                s = getTime14();
+                break;
+            case 8:
+                s = getTime15();
+                break;
+            case 9:
+                s = getTime16();
+                break;
+            case 10:
+                s = getTime17();
+                break;
+            case 11:
+                s = getTime18();
+                break;
+            case 12:
+                s = getTime19();
+                break;
+            case 13:
+                s = getTime20();
+                break;
+            case 14:
+                s = getTime21();
+                break;
+            default:
+                break;
+        }
+        return s;
     }
 
-    public void setTime22(String time22) {
-        Time22 = time22;
+    public void setTimeOfN(int i, String s) {
+        switch(i) {
+            case 0:
+                setTime7(s);
+                break;
+            case 1:
+                setTime8(s);
+                break;
+            case 2:
+                setTime9(s);
+                break;
+            case 3:
+                setTime10(s);
+                break;
+            case 4:
+                setTime11(s);
+                break;
+            case 5:
+                setTime12(s);
+                break;
+            case 6:
+                setTime13(s);
+                break;
+            case 7:
+                setTime14(s);
+                break;
+            case 8:
+                setTime15(s);
+                break;
+            case 9:
+                setTime16(s);
+                break;
+            case 10:
+                setTime17(s);
+                break;
+            case 11:
+                setTime18(s);
+                break;
+            case 12:
+                setTime19(s);
+                break;
+            case 13:
+                setTime20(s);
+                break;
+            case 14:
+                setTime21(s);
+                break;
+            default:
+                break;
+        }
     }
+
 }

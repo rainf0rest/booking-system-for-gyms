@@ -45,8 +45,9 @@ public class BookActivity extends Activity {
     private AlertDialog.Builder builder;
     //static EqBookTime myEqBookTime;
     private CalThread calThread;
-    String myEqID;
+    String myEqID, toEquipmentID;
     boolean flag;
+    private String equipmentName;
 
     class CalThread extends Thread {
         public Handler myHandler;
@@ -59,13 +60,19 @@ public class BookActivity extends Activity {
                     super.handleMessage(msg);
                     SimpleDateFormat    sDateFormat    =   new SimpleDateFormat("yyyy-MM-dd    hh:mm:ss");
                     String    date    =    sDateFormat.format(new    java.util.Date());
-
                     if (msg.what == 0x001) {
                         myEqID = msg.getData().getString("data");
-                        //Toast.makeText(BookActivity.this, "目标表ID：" + myEqID, Toast.LENGTH_SHORT).show();
+                        toEquipmentID = msg.getData().getString("data1");
+                        Toast.makeText(BookActivity.this, "目标表ID：" + myEqID + "\n eqID:" + toEquipmentID, Toast.LENGTH_SHORT).show();
+                    }else if(msg.what == 0x003) {
+                        flag = msg.getData().getBoolean("data");
+                        //Toast.makeText(BookActivity.this, "0x003 \n flag:" + flag, Toast.LENGTH_SHORT).show();
+                    }else if(msg.what == 0x004) {
+                        equipmentName = msg.getData().getString("data");
+                        Toast.makeText(BookActivity.this, "0x004 \n eqName:" + equipmentName, Toast.LENGTH_SHORT).show();
                     }
                     else if(msg.what == 0x002) {
-                        //Toast.makeText(BookActivity.this, "目标表ID：" + myEqID + "信息0x002" , Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(BookActivity.this, "目标表ID：" + myEqID + "信息0x002"  + "\nflag:" + flag, Toast.LENGTH_SHORT).show();
                         if(flag == true) {
                             int i = msg.getData().getInt("data");
                             User user = BmobUser.getCurrentUser(User.class);
@@ -80,7 +87,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("7-8");
                                     bookRecord.setDate(date);
@@ -99,7 +106,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("8-9");
                                     bookRecord.setDate(date);
@@ -118,7 +125,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("9-10");
                                     bookRecord.setDate(date);
@@ -137,7 +144,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("10-11");
                                     bookRecord.setDate(date);
@@ -156,7 +163,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("11-12");
                                     bookRecord.setDate(date);
@@ -175,7 +182,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("12-13");
                                     bookRecord.setDate(date);
@@ -194,7 +201,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("13-14");
                                     bookRecord.setDate(date);
@@ -213,7 +220,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("14-15");
                                     bookRecord.setDate(date);
@@ -232,7 +239,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("15-16");
                                     bookRecord.setDate(date);
@@ -251,7 +258,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("16-17");
                                     bookRecord.setDate(date);
@@ -270,7 +277,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("17-18");
                                     bookRecord.setDate(date);
@@ -289,7 +296,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("18-19");
                                     bookRecord.setDate(date);
@@ -308,7 +315,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("19-20");
                                     bookRecord.setDate(date);
@@ -327,7 +334,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("20-21");
                                     bookRecord.setDate(date);
@@ -346,7 +353,7 @@ public class BookActivity extends Activity {
 
                                         }
                                     });
-                                    bookRecord.setEqID(eq.getEqID());
+                                    bookRecord.setEqID(toEquipmentID);
                                     bookRecord.setUserID(user.getObjectId());
                                     bookRecord.setTime("21-22");
                                     bookRecord.setDate(date);
@@ -360,8 +367,6 @@ public class BookActivity extends Activity {
                                 default:
                                     break;
                             }
-                        }else if(msg.what == 0x003) {
-                            flag = msg.getData().getBoolean("data");
                         }
 
                     }
@@ -451,9 +456,15 @@ public class BookActivity extends Activity {
         bookedbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(BookActivity.this, "booked btn!", Toast.LENGTH_SHORT).show();
+                //BmobQuery<BookRecord> query = new BmobQuery<BookRecord>();
+                //User user = BmobUser.getCurrentUser(User.class);
+
+
+
                 listems.clear();
                 BmobQuery<BookRecord> query = new BmobQuery<BookRecord>();
-                User user = BmobUser.getCurrentUser(User.class);
+                final User user = BmobUser.getCurrentUser(User.class);
                 query.addWhereEqualTo("UserID", user.getObjectId());
                 query.findObjects(new FindListener<BookRecord>() {
                     @Override
@@ -461,19 +472,25 @@ public class BookActivity extends Activity {
                         if(e == null) {
                             for(BookRecord bookRecord : list) {
                                 Map<String, Object> listem = new HashMap<String, Object>();
-                                listem.put("UserID", "用户ID：" + bookRecord.getUserID());
-                                listem.put("EqID", "器材ID" + bookRecord.getEqID());
+                                getEqNameofdb(bookRecord.getEqID());
+                                listem.put("EqName", "器材：：" + equipmentName);
+                                //Toast.makeText(BookActivity.this, equipmentName, Toast.LENGTH_SHORT).show();
+
                                 listem.put("Time", "预约时段" + bookRecord.getTime());
                                 listem.put("Date", "日期" + bookRecord.getDate());
                                 listems.add(listem);
                             }
                             SimpleAdapter simplead = new SimpleAdapter(BookActivity.this, listems,
-                                    R.layout.book_list_item, new String[] { "UserID", "EqID", "Time", "Date"},
-                                    new int[] {R.id.eqID,R.id.eqInID,R.id.eqName, R.id.eqPrice});
+                                    R.layout.book_list_item2, new String[] { "EqName","Time", "Date"},
+                                    new int[] {R.id.list_item_eqName,R.id.list_item_time, R.id.list_item_date});
                             bookListView.setAdapter(simplead);
+                        }
+                        else {
+                            Toast.makeText(BookActivity.this, "fail to find record" + "\n" + e.getErrorCode() + "\n" + e.getErrorCode(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
             }
         });
 
@@ -481,6 +498,23 @@ public class BookActivity extends Activity {
         calThread = new CalThread();
         calThread.start();
 
+    }
+
+    private void getEqNameofdb(String eqID) {
+        BmobQuery<Equipment> query = new BmobQuery<Equipment>();
+        query.getObject(eqID, new QueryListener<Equipment>() {
+            @Override
+            public void done(Equipment equipment, BmobException e) {
+                if(e == null) {
+                    Message msg = new Message();
+                    msg.what = 0x004;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("data", equipment.getEqName());
+                    msg.setData(bundle);
+                    calThread.myHandler.sendMessage(msg);
+                }
+            }
+        });
     }
 
     private void showBookDia(final int postion, final String id) {
@@ -498,12 +532,14 @@ public class BookActivity extends Activity {
             public void done(List<EqBookTime> list, BmobException e) {
                 if(e == null){
                     for(EqBookTime eqBookTime : list) {
-                        Toast.makeText(getApplicationContext(), "ObjectId: "+ eqBookTime.getObjectId(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "ObjectId: "+ eqBookTime.getObjectId(), Toast.LENGTH_SHORT).show();
                         String eqBid = eqBookTime.getObjectId();
+                        String toeqid = eqBookTime.getEqID();
                         Message msg = new Message();
                         msg.what = 0x001;
                         Bundle bundle = new Bundle();
                         bundle.putString("data", eqBid);
+                        bundle.putString("data1", toeqid);
                         msg.setData(bundle);
                         calThread.myHandler.sendMessage(msg);
                     }
@@ -522,19 +558,147 @@ public class BookActivity extends Activity {
 
         builder.setItems(Items, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(DialogInterface dialogInterface, final int i) {
                 //Toast.makeText(getApplicationContext(), "You clicked "+Items[i], Toast.LENGTH_SHORT).show();
                 BmobQuery<EqBookTime> myQuery = new BmobQuery<>();
                 myQuery.getObject(myEqID, new QueryListener<EqBookTime>() {
                     @Override
                     public void done(EqBookTime eqBookTime, BmobException e) {
                         if(e == null) {
-                            boolean f;
-                            if(eqBookTime.getTime7() != null) {
-                                f = false;
+                            /*
+                            boolean f = true;
+                            switch (i) {
+                                case 0:
+                                    if(eqBookTime.getTime7() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 1:
+                                    if(eqBookTime.getTime8() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 2:
+                                    if(eqBookTime.getTime9() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 3:
+                                    if(eqBookTime.getTime10() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 4:
+                                    if(eqBookTime.getTime11() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 5:
+                                    if(eqBookTime.getTime12() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 6:
+                                    if(eqBookTime.getTime13() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 7:
+                                    if(eqBookTime.getTime14() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 8:
+                                    if(eqBookTime.getTime15() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 9:
+                                    if(eqBookTime.getTime16() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 10:
+                                    if(eqBookTime.getTime17() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 11:
+                                    if(eqBookTime.getTime18() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 12:
+                                    if(eqBookTime.getTime19() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 13:
+                                    if(eqBookTime.getTime20() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                case 14:
+                                    if(eqBookTime.getTime21() != null) {
+                                        f = false;
+                                    }
+                                    else {
+                                        f = true;
+                                    }
+                                    break;
+                                default:
+                                    break;
                             }
-                            else {
-                                f = true;
+                            */
+                            boolean f = true;
+                            if(eqBookTime.getTimeOfN(i) != null) {
+                                f = false;
+                                Toast.makeText(BookActivity.this, "预约已满:\n" + eqBookTime.getTime7(), Toast.LENGTH_SHORT).show();
+                            }else
+                            {
+                                Toast.makeText(BookActivity.this, "可以预约", Toast.LENGTH_SHORT).show();
                             }
                             Message msg = new Message();
                             msg.what = 0x003;

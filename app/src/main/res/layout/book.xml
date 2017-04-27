@@ -127,7 +127,7 @@
             android:layout_height="3dp"
             android:layout_alignParentBottom="true"
             android:background="#1E88E5"
-            android:id="@+id/div1"
+            android:id="@+id/div3"
             android:layout_weight="0.06" />
 
     </LinearLayout>
