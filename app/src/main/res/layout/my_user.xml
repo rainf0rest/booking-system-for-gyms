@@ -16,13 +16,28 @@
         android:id="@+id/userDataText"/>
 
     <Button
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:id="@+id/editbtn"
-        android:text="编辑"
+        android:id="@+id/editbtnofUserData"
+        android:text="编辑信息"
+        android:layout_marginLeft="69dp"
+        android:layout_marginStart="69dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toRightOf="@+id/editbtnofpassword" />
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/editbtnofpassword"
+        android:text="修改密码"
+        android:layout_marginLeft="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
