@@ -246,7 +246,7 @@ public class EqBookTime extends BmobObject {
     }
 
     public String getStringOfTimes(int i) {
-        if(getTimeOfN(i) == null) {
+        if(getTimeOfN(i) == null || getTimeOfN(i).equals("-1")) {
             return "可约";
         }else{
             return "被约";

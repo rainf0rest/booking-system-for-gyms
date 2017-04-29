@@ -127,6 +127,7 @@ public class BookActivity extends Activity {
                 }
                 else{
                     //booked
+                    findDiax();
 
                 }
             }
@@ -164,6 +165,7 @@ public class BookActivity extends Activity {
                                         R.layout.book_list_item, new String[] { "ID", "InID", "Name", "Price", "Free" },
                                         new int[] {R.id.eqID,R.id.eqInID,R.id.eqName, R.id.eqPrice, R.id.eqFree});
                                 bookListView.setAdapter(simplead);
+
                                 bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -243,6 +245,82 @@ public class BookActivity extends Activity {
                         }
                     });
                 }
+                else if(msg.what == 0x705) {
+                    int te = msg.getData().getInt("data");
+                    listems.clear();
+                    BmobQuery<BookRecord> query = new BmobQuery<BookRecord>();
+                    final User user = BmobUser.getCurrentUser(User.class);
+                    query.addWhereEqualTo("UserID", user.getObjectId());
+                    query.addWhereEqualTo("EqName", equipmentType[te]);
+                    query.findObjects(new FindListener<BookRecord>() {
+                        @Override
+                        public void done(final List<BookRecord> list, BmobException e) {
+                            if(e == null) {
+                                for(BookRecord bookRecord : list) {
+                                    Map<String, Object> listem = new HashMap<String, Object>();
+                                    listem.put("EqName", "器材：：" + bookRecord.getEqName());
+                                    //Toast.makeText(BookActivity.this, equipmentName, Toast.LENGTH_SHORT).show();
+
+                                    listem.put("Time", "预约时段" + bookRecord.getTime());
+                                    listem.put("Date", "日期" + bookRecord.getDate());
+                                    listems.add(listem);
+                                    SimpleAdapter simplead = new SimpleAdapter(BookActivity.this, listems,
+                                            R.layout.book_list_item2, new String[] { "EqName","Time", "Date"},
+                                            new int[] {R.id.list_item_eqName,R.id.list_item_time, R.id.list_item_date});
+                                    bookListView.setAdapter(simplead);
+
+                                    bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                            showbookedDia(list.get(i));
+                                            //Toast.makeText(BookActivity.this, "你选择了器材编号为：" + id + " / " + inId + "的器材", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                }
+                            }
+                            else{
+
+                            }
+                        }
+                    });
+                }
+                else if (msg.what == 0x706){
+                    String id = msg.getData().getString("recordId");
+                    final int t = msg.getData().getInt("time");
+                    EqBookTime eqBookTime = (EqBookTime) msg.obj;
+                    eqBookTime.setTimeOfN(t, "-1");
+                    eqBookTime.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null) {
+                                Toast.makeText(BookActivity.this, "succ: \nindex:" + t , Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(BookActivity.this, "error：\n" + e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                    BookRecord bookRecord = new BookRecord();
+                    bookRecord.setObjectId(id);
+                    bookRecord.delete(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null) {
+
+                            }
+                            else {
+
+                            }
+                        }
+                    });
+
+                }
+                else if(msg.what == 0x707) {
+
+                }
 
             }
         };
@@ -271,9 +349,82 @@ public class BookActivity extends Activity {
 
     }
 
+    private void findDiax() {
+        new AlertDialog.Builder(this).setTitle("器材名称").setIcon(R.drawable.ok).setSingleChoiceItems(
+                equipmentType, 0,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Message msg = myWorkHandle.obtainMessage();
+                        msg.what = 0x705;
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("data", which);
+                        msg.setData(bundle);
+                        myWorkHandle.sendMessage(msg);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("取消", null).show();
+    }
+
+    private void showbookedDia(final BookRecord bookRecord) {
+        builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.ok);
+        builder.setTitle(R.string.booked_operate);
+        builder.setMessage("确定取消预约吗？");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialogInterface, int i) {
+                final int ix = getindex(bookRecord.getTime());
+
+                BmobQuery<EqBookTime> query = new BmobQuery<EqBookTime>();
+                query.addWhereEqualTo("EqID", bookRecord.getEqID());
+                query.findObjects(new FindListener<EqBookTime>() {
+                    @Override
+                    public void done(List<EqBookTime> list, BmobException e) {
+                        if(e == null) {
+                            Message msg = myWorkHandle.obtainMessage();
+                            msg.what = 0x706;
+                            msg.obj = list.get(0);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("time", ix);
+                            bundle.putString("recordId", bookRecord.getObjectId());
+                            msg.setData(bundle);
+                            myWorkHandle.sendMessage(msg);
+                            dialogInterface.dismiss();
+                        }
+                        else {
+
+                        }
+                    }
+                });
+
+
+
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+
+    }
+
+    private int getindex(String s) {
+        int t = 0;
+        for(int i = 0; i < Times.length; i++) {
+            if(s.equals(Times[i])) {
+                t = i;
+            }
+        }
+        return t;
+    }
+
     private void showBookDia(final String id, final String[] s, final String na, final String eqid) {
         new AlertDialog.Builder(this)
-                .setTitle("预约时段")
+                .setTitle(R.string.operate)
                 .setIcon(R.drawable.ok)
                 .setSingleChoiceItems(s, 0,
                         new DialogInterface.OnClickListener() {
@@ -281,7 +432,7 @@ public class BookActivity extends Activity {
                                                 int which) {
                                 String ts = Times[which] + "可约";
                                 if(s[which].equals(ts)){
-                                    Toast.makeText(BookActivity.this, "可约", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(BookActivity.this, "可约", Toast.LENGTH_SHORT).show();
                                     Message msg = myWorkHandle.obtainMessage();
                                     msg.what = 0x704;
                                     Bundle bundle = new Bundle();
