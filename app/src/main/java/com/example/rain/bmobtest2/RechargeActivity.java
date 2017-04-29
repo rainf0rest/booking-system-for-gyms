@@ -2,6 +2,7 @@ package com.example.rain.bmobtest2;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,20 +32,27 @@ public class RechargeActivity extends Activity {
         rechargebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int money = Integer.parseInt(rechargeMoney.getText().toString());
+                String temp = rechargeMoney.getText().toString();
+                if(TextUtils.isEmpty(temp)) {
+                    Toast.makeText(RechargeActivity.this, "充值不能为空", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    int money = Integer.parseInt(temp);
 
-                final User newUser = BmobUser.getCurrentUser(User.class);
-                newUser.setMoney(newUser.getMoney() + money);
-                newUser.update(newUser.getObjectId(), new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if(e==null){
-                            Toast.makeText(RechargeActivity.this, "success to recharge ", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(RechargeActivity.this, "fail to recharge "  + newUser.getObjectId(), Toast.LENGTH_SHORT).show();
+                    final User newUser = BmobUser.getCurrentUser(User.class);
+                    newUser.setMoney(newUser.getMoney() + money);
+                    newUser.update(newUser.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                Toast.makeText(RechargeActivity.this, "充值成功", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(RechargeActivity.this, "充值失败"  + newUser.getObjectId(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
 
 
 

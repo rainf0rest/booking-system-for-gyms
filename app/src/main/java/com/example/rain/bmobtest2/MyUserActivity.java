@@ -132,7 +132,7 @@ public class MyUserActivity extends Activity {
         final View view = View.inflate(MyUserActivity.this, R.layout.dialog_of_password, null);
         //Toast.makeText(MainActivity.this, "edit", Toast.LENGTH_SHORT).show();
         new AlertDialog.Builder(MyUserActivity.this)
-                .setIcon(R.drawable.edit)
+                .setIcon(R.drawable.password)
                 .setTitle("修改密码")
                 .setView(view)
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
