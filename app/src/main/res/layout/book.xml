@@ -48,7 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/back"
-                android:id="@+id/backImageBack" />
+                android:id="@+id/backImageBack"
+                android:visibility="gone"/>
 
             <Button
                 android:text="预约"
@@ -57,7 +58,8 @@
                 android:id="@+id/bookbtn"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/bookedbtn"
-                android:layout_toStartOf="@+id/bookedbtn" />
+                android:layout_toStartOf="@+id/bookedbtn"
+                android:background="@drawable/shape_pressed"/>
 
             <Button
                 android:text="已约"
@@ -66,7 +68,8 @@
                 android:id="@+id/bookedbtn"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/shape_normal"/>
 
         </RelativeLayout>
 
@@ -77,39 +80,12 @@
             android:background="#1E88E5"
             android:id="@+id/div1"
             android:layout_weight="0.06" />
-    </LinearLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp" >
 
-            <TextView
-                android:text="器材："
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/eqID"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/dateText"
-                android:layout_alignTop="@+id/eqID" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/eqID"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-        </RelativeLayout>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="3dp"
-            android:layout_alignParentBottom="true"
-            android:background="#1E88E5"
-            android:id="@+id/div2"
-            android:layout_weight="0.06" />
     </LinearLayout>
+
+
+    </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

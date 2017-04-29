@@ -11,6 +11,15 @@ public class BookRecord extends BmobObject {
     private String EqID;
     private String Time;
     private String date;
+    private String EqName;
+
+    public String getEqName() {
+        return EqName;
+    }
+
+    public void setEqName(String eqName) {
+        EqName = eqName;
+    }
 
     public String getUserID() {
         return UserID;

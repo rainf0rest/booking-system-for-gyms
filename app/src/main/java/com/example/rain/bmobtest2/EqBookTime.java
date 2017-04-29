@@ -245,4 +245,13 @@ public class EqBookTime extends BmobObject {
         }
     }
 
+    public String getStringOfTimes(int i) {
+        if(getTimeOfN(i) == null) {
+            return "可约";
+        }else{
+            return "被约";
+        }
+
+    }
+
 }
