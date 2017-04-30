@@ -12,6 +12,15 @@ public class BookRecord extends BmobObject {
     private String Time;
     private String date;
     private String EqName;
+    private int Price;
+
+    public int getPrice() {
+        return Price;
+    }
+
+    public void setPrice(int price) {
+        Price = price;
+    }
 
     public String getEqName() {
         return EqName;
