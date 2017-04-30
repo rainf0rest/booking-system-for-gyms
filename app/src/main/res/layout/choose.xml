@@ -22,9 +22,10 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:id="@+id/noteOfPE"
-            android:text="通知:五一期间体育馆闭馆。"
-            android:textSize="10pt"
-            android:gravity="center"/>
+            android:text="通知面板"
+            android:textSize="8pt"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"/>
         <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
