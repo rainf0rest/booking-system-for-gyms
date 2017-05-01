@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_bg_color"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/book_btn"
+            style="@style/Smile_Button_theme"
+            android:layout_width="@dimen/normal_btn"
+            android:layout_height="@dimen/normal_btn"
+            android:layout_weight="1"
+            android:text="@string/book_btn" />
+
+        <Button
+            android:id="@+id/booked_btn"
+            style="@style/Smile_Button_theme"
+            android:layout_width="@dimen/normal_btn"
+            android:layout_height="@dimen/normal_btn"
+            android:layout_weight="1"
+            android:text="@string/booked_btn"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/type_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/base_action_bar_height"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:background="@drawable/btn_login_selector"
+        android:text="@string/type_btn"
+        android:textColor="@color/base_color_text_white"
+        android:textSize="@dimen/text_size_large" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/book_list">
+
+    </ListView>
+
+</LinearLayout>

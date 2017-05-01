@@ -3,6 +3,7 @@ package com.example.rain.bmobtest2;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -81,6 +82,14 @@ public class NewUserDataActivity extends Activity {
 
         };
 
+        money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NewUserDataActivity.this, RechargeActivity.class);
+                startActivity(intent);
+            }
+        });
+
         headImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,12 +122,17 @@ public class NewUserDataActivity extends Activity {
 
     private void showDia() {
         final View view = View.inflate(NewUserDataActivity.this, R.layout.dialog_of_usedata, null);
+        EditText tempname1 = (EditText) view.findViewById(R.id.userData_username);
+        EditText tempemail1 = (EditText) view.findViewById(R.id.userData_useremail);
+        User user = BmobUser.getCurrentUser(User.class);
+        tempname1.setText(user.getUsername());
+        tempemail1.setText(user.getEmail());
         //Toast.makeText(MainActivity.this, "edit", Toast.LENGTH_SHORT).show();
         new AlertDialog.Builder(NewUserDataActivity.this)
                 .setIcon(R.drawable.edit)
-                .setTitle("编辑个人信息")
+                .setTitle("编辑个人资料")
                 .setView(view)
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         EditText tempname = (EditText) view.findViewById(R.id.userData_username);
@@ -147,7 +161,7 @@ public class NewUserDataActivity extends Activity {
                         }
                     }
                 })
-                .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -165,7 +179,7 @@ public class NewUserDataActivity extends Activity {
                 .setIcon(R.drawable.password)
                 .setTitle("修改密码")
                 .setView(view)
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         EditText tempold = (EditText) view.findViewById(R.id.userData_user_oldPassword);
@@ -195,7 +209,7 @@ public class NewUserDataActivity extends Activity {
                         }
                     }
                 })
-                .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

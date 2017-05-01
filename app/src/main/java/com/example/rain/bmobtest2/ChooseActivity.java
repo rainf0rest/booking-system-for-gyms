@@ -80,7 +80,8 @@ public class ChooseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(ChooseActivity.this, "success to Book System!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ChooseActivity.this, BookActivity.class);
+                //Intent intent = new Intent(ChooseActivity.this, BookActivity.class);
+                Intent intent = new Intent(ChooseActivity.this, NewBookActivity.class);
                 startActivity(intent);
             }
         });

@@ -11,4 +11,6 @@
 
     <dimen name="half_screen_width">120dp</dimen>
     <dimen name="half_screen_heigh">120dp</dimen>
+
+    <dimen name="normal_btn">40dp</dimen>
 </resources>

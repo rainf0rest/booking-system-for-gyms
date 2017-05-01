@@ -86,21 +86,4 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/goto_userdata" />
 
-    <RelativeLayout
-        android:id="@+id/layout_black_tips"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:visibility="gone" >
-
-        <TextView
-            style="@style/Smile_TextView_Black"
-            android:layout_centerInParent="true"
-            android:text="@string/black_tips"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
 </LinearLayout>
