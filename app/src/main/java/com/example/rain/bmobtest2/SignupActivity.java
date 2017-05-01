@@ -51,6 +51,7 @@ public class SignupActivity extends Activity {
                 bmobUser.setPassword(password);
                 bmobUser.setEmail(Email);
                 bmobUser.setMoney(0);
+                bmobUser.setHeadID(0);
 
                 bmobUser.signUp(new SaveListener<User>() {
                     @Override

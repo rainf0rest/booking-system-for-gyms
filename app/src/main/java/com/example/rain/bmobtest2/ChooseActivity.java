@@ -98,7 +98,8 @@ public class ChooseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(ChooseActivity.this, "success to User Data System!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ChooseActivity.this, MyUserActivity.class);
+                //Intent intent = new Intent(ChooseActivity.this, MyUserActivity.class);
+                Intent intent = new Intent(ChooseActivity.this, NewUserDataActivity.class);
                 startActivity(intent);
             }
         });

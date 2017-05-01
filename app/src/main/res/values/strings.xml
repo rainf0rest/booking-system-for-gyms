@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">体育馆预约系统</string>
     <string name="operate">预约时段7-22</string>
-
+    <string name="action_settings">Settings</string>
     <string name="booked_operate">提示</string>
     <string name="login_username_hint">请输入用户名&#8230;</string>
     <string name="login_password_hint">请输入密码&#8230;</string>
@@ -14,4 +14,25 @@
     <string name="login_pwd">密码 </string>
     <string name="login_email">邮箱 </string>
     <string name="message_search_hint">搜索&#8230;</string>
+
+    <string name="add_avator">头像</string>
+    <string name="add_nick">账号</string>
+    <string name="add_money">钱包</string>
+    <string name="add_name_hint">请输入昵称&#8230;</string>
+    <string name="add_gender">邮箱</string>
+    <string name="blacklist">黑名单</string>
+
+    <string name="change_name">新的用户名</string>
+    <string name="change_email">新的用户邮箱</string>
+    <string name="old_password">旧密码</string>
+    <string name="new_password">新密码</string>
+
+    <string name="edit_data">编辑资料</string>
+    <string name="edit_password">修改密码</string>
+
+
+    <string name="add_friend">添加好友</string>
+    <string name="black_tips">已添加至黑名单，你将不再收到对方的消息!</string>
+
+
 </resources>
