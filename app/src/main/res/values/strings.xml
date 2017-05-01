@@ -41,6 +41,7 @@
     <string name="recharge_money">充值金额</string>
     <string name="recharge_btn">充值</string>
     <string name="btn_recharge_hint">数字类型</string>
+    <string name="find">查询</string>
 
 
 </resources>
