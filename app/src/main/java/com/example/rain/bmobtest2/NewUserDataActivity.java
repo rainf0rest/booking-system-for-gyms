@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
@@ -74,7 +75,31 @@ public class NewUserDataActivity extends Activity {
                 super.handleMessage(msg);
                 if (msg.what == 0x901) {
                     refresh();
+                    //日志
+                    String logid = msg.getData().getString("data");
+                    String logContent = msg.getData().getString("cont");
+                    AppLog appLog = new AppLog();
+                    appLog.setUserID(logid);
+                    appLog.setOperate("用户修改个人资料:" + logContent);
+                    appLog.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+
+                        }
+                    });
                 }else if(msg.what == 0x902) {
+                    //日志
+                    String logid = msg.getData().getString("data");
+                    //String logContent = msg.getData().getString("cont");
+                    AppLog appLog = new AppLog();
+                    appLog.setUserID(logid);
+                    appLog.setOperate("用户修改账号密码");
+                    appLog.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+
+                        }
+                    });
                     Toast.makeText(NewUserDataActivity.this, "修改密码成功", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -148,12 +173,18 @@ public class NewUserDataActivity extends Activity {
                             User user = BmobUser.getCurrentUser(User.class);
                             user.setUsername(newName);
                             user.setEmail(newEmail);
+                            final String logid = user.getObjectId();
+                            final String logContent = "n:" + newName + "\ne:" + newEmail;
                             user.update(user.getObjectId(), new UpdateListener() {
                                 @Override
                                 public void done(BmobException e) {
                                     if(e == null) {
                                         Message msg = new Message();
                                         msg.what = 0x901;
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("data", logid);
+                                        bundle.putString("cont", logContent);
+                                        msg.setData(bundle);
                                         wHandler.sendMessage(msg);
                                     }
                                 }
@@ -193,12 +224,16 @@ public class NewUserDataActivity extends Activity {
                         }
                         else {
                             User user = BmobUser.getCurrentUser(User.class);
+                            final String logid = user.getObjectId();
                             user.updateCurrentUserPassword(oldp, newp, new UpdateListener() {
                                 @Override
                                 public void done(BmobException e) {
                                     if(e == null){
                                         Message msg = new Message();
                                         msg.what = 0x902;
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("data", logid);
+                                        msg.setData(bundle);
                                         wHandler.sendMessage(msg);
                                     }else {
                                         Toast.makeText(NewUserDataActivity.this, "修改密码失败，旧密码出错或新密码格式有误", Toast.LENGTH_SHORT).show();

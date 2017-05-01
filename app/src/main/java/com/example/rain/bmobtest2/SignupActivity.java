@@ -46,7 +46,7 @@ public class SignupActivity extends Activity {
                 }
 
                 //BmobUser bmobUser = new BmobUser();
-                User bmobUser = new User();
+                final User bmobUser = new User();
                 bmobUser.setUsername(name);
                 bmobUser.setPassword(password);
                 bmobUser.setEmail(Email);
@@ -57,6 +57,16 @@ public class SignupActivity extends Activity {
                     @Override
                     public void done(User s, BmobException e) {
                         if(e==null){
+                            //日志
+                            AppLog appLog = new AppLog();
+                            appLog.setUserID(bmobUser.getObjectId());
+                            appLog.setOperate("用户注册");
+                            appLog.save(new SaveListener<String>() {
+                                @Override
+                                public void done(String s, BmobException e) {
+
+                                }
+                            });
                             Toast.makeText(SignupActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SignupActivity.this, ChooseActivity.class);
                             startActivity(intent);

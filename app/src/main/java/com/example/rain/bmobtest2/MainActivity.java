@@ -65,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void done(BmobUser bmobUser, BmobException e) {
                         if(e==null){
+                            //日志
+                            AppLog appLog = new AppLog();
+                            appLog.setUserID(bmobUser.getObjectId());
+                            appLog.setOperate("用户登录");
+                            appLog.save(new SaveListener<String>() {
+                                @Override
+                                public void done(String s, BmobException e) {
+
+                                }
+                            });
                             Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, ChooseActivity.class);
                             startActivity(intent);

@@ -31,6 +31,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.socketio.callback.StringCallback;
 
 /**
  * Created by rain on 2017/5/1.
@@ -258,10 +259,22 @@ public class NewBookActivity extends Activity {
 
                     int tp = user.getMoney() - pri;
                     user.setMoney(tp);
+                    final String logid = user.getObjectId();
+                    final String logContent = bookRecord.getEqName();
                     user.update(user.getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
                             if(e == null) {
+                                //日志
+                                AppLog appLog = new AppLog();
+                                appLog.setUserID(logid);
+                                appLog.setOperate("用户预约：" + logContent);
+                                appLog.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 Toast.makeText(NewBookActivity.this, "预约成功", Toast.LENGTH_SHORT).show();
                             }
                             else {
@@ -320,6 +333,7 @@ public class NewBookActivity extends Activity {
                     });
                 }
                 else if (msg.what == 0x706){
+                    final String logContent = msg.getData().getString("eqName");
                     String id = msg.getData().getString("recordId");
                     final int t = msg.getData().getInt("time");
                     int pri = msg.getData().getInt("price");
@@ -353,10 +367,21 @@ public class NewBookActivity extends Activity {
 
                     User user = BmobUser.getCurrentUser(User.class);
                     user.setMoney(user.getMoney() + pri);
+                    final String logid = user.getObjectId();
                     user.update(user.getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
                             if(e == null) {
+                                //日志
+                                AppLog appLog = new AppLog();
+                                appLog.setUserID(logid);
+                                appLog.setOperate("用户取消预约：" + logContent);
+                                appLog.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 Toast.makeText(NewBookActivity.this, "取消预约成功", Toast.LENGTH_SHORT).show();
                             }
                             else {
@@ -551,6 +576,7 @@ public class NewBookActivity extends Activity {
                                 msg.what = 0x706;
                                 msg.obj = list.get(0);
                                 Bundle bundle = new Bundle();
+                                bundle.putString("eqName", bookRecord.getEqName());
                                 bundle.putInt("time", ix);
                                 bundle.putInt("price", bookRecord.getPrice());
                                 bundle.putString("recordId", bookRecord.getObjectId());

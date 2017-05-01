@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
@@ -40,11 +41,23 @@ public class RechargeActivity extends Activity {
                     int money = Integer.parseInt(temp);
 
                     final User newUser = BmobUser.getCurrentUser(User.class);
+                    final String logid = newUser.getObjectId();
+                    final String logContent = temp + "元";
                     newUser.setMoney(newUser.getMoney() + money);
                     newUser.update(newUser.getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
                             if(e==null){
+                                //日志
+                                AppLog appLog = new AppLog();
+                                appLog.setUserID(logid);
+                                appLog.setOperate("用户充值：" + logContent);
+                                appLog.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
                                 Toast.makeText(RechargeActivity.this, "充值成功", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(RechargeActivity.this, "充值失败"  + newUser.getObjectId(), Toast.LENGTH_SHORT).show();
