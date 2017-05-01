@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.bmob.v3.Bmob;
@@ -16,7 +17,8 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button loginbtn, regbtn;
+    private Button loginbtn;
+    TextView regbtn;
     private EditText nameEditText, passEditText;
 
     @Override
@@ -24,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bmob.initialize(this, "e038ac3ba7a96b5c39372ee8589e1426");
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_new);
 
-        loginbtn = (Button) findViewById(R.id.loginbtn);
-        regbtn = (Button) findViewById(R.id.regbtn);
-        nameEditText = (EditText) findViewById(R.id.userName);
-        passEditText = (EditText) findViewById(R.id.password);
+        loginbtn = (Button) findViewById(R.id.btn_login);
+        regbtn = (TextView) findViewById(R.id.btn_register);
+        nameEditText = (EditText) findViewById(R.id.et_username);
+        passEditText = (EditText) findViewById(R.id.et_password);
 
         //BmobUser bmobUser = new BmobUser();
 

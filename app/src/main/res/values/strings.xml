@@ -3,4 +3,15 @@
     <string name="operate">预约时段7-22</string>
 
     <string name="booked_operate">提示</string>
+    <string name="login_username_hint">请输入用户名&#8230;</string>
+    <string name="login_password_hint">请输入密码&#8230;</string>
+    <string name="login_email_hint">请在此输入邮箱&#8230;</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="register_txt1">还没有账号？</string>
+    <string name="register_txt2">立即注册 ></string>
+    <string name="login_account">账号 </string>
+    <string name="login_pwd">密码 </string>
+    <string name="login_email">邮箱 </string>
+    <string name="message_search_hint">搜索&#8230;</string>
 </resources>

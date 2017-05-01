@@ -57,7 +57,7 @@ public class BookActivity extends Activity {
             "14-15", "15-16", "16-17", "17-18", "18-19", "19-20", "20-21", "21-22"};
     private final String[] TimeOfclock = {"70000","80000","90000","100000","110000","120000","130000",
             "140000","150000","160000","170000","180000","190000","200000","210000"};
-    private final String[] equipmentType = {"跑步机", "哑铃"};
+    private final String[] equipmentType = {"跑步机", "哑铃", "杠铃"};
     private Handler myWorkHandle;
     private final List<Map<String, Object>> listems = new ArrayList<Map<String, Object>>();
 

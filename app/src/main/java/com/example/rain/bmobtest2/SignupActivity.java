@@ -21,16 +21,17 @@ public class SignupActivity extends Activity {
 
     private Button regbtn;
     //private EditText userName, userPassword, userEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_up);
+        setContentView(R.layout.signup_new);
 
-        regbtn = (Button) findViewById(R.id.regokbtn);
+        regbtn = (Button) findViewById(R.id.btn_register);
         final EditText userName, userPassword, userEmail;
-        userName = (EditText) findViewById(R.id.regUserName);
-        userPassword = (EditText) findViewById(R.id.regUserPassword);
-        userEmail = (EditText) findViewById(R.id.regUserEmail);
+        userName = (EditText) findViewById(R.id.et_username);
+        userPassword = (EditText) findViewById(R.id.et_password);
+        userEmail = (EditText) findViewById(R.id.et_email);
 
         regbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +56,11 @@ public class SignupActivity extends Activity {
                     @Override
                     public void done(User s, BmobException e) {
                         if(e==null){
-                            Toast.makeText(SignupActivity.this, "success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SignupActivity.this, ChooseActivity.class);
                             startActivity(intent);
                         }else{
-                            Toast.makeText(SignupActivity.this, "failure", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "注册失败，请重试", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
