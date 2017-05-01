@@ -24,10 +24,10 @@ public class RechargeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recharge);
+        setContentView(R.layout.new_recharge_layout);
 
-        rechargebtn = (Button) findViewById(R.id.rechargeOk);
-        rechargeMoney = (EditText) findViewById(R.id.rechargeMoney);
+        rechargebtn = (Button) findViewById(R.id.btn_recharge_ok);
+        rechargeMoney = (EditText) findViewById(R.id.et_recharge_money);
 
         rechargebtn.setOnClickListener(new View.OnClickListener() {
             @Override

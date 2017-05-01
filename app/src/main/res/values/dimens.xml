@@ -8,4 +8,7 @@
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_large">18sp</dimen>
     <dimen name="register_margin">10.0dp</dimen>
+
+    <dimen name="half_screen_width">120dp</dimen>
+    <dimen name="half_screen_heigh">120dp</dimen>
 </resources>

@@ -31,14 +31,14 @@ public class ChooseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.choose);
+        setContentView(R.layout.new_choose_layout);
 
-        noteTextView = (TextView) findViewById(R.id.noteOfPE);
-        toBookbtn = (Button) findViewById(R.id.toBook);
-        toRechargebtn = (Button) findViewById(R.id.toRecharge);
-        toMyUserbtn = (Button) findViewById(R.id.toMyUser);
+        noteTextView = (TextView) findViewById(R.id.textview_note);
+        toBookbtn = (Button) findViewById(R.id.goto_book);
+        toRechargebtn = (Button) findViewById(R.id.goto_recharge);
+        toMyUserbtn = (Button) findViewById(R.id.goto_userdata);
 
-        noteTextView.setMovementMethod(ScrollingMovementMethod.getInstance());
+        //noteTextView.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         BmobQuery<Note> query = new BmobQuery<>();
         query.addWhereEqualTo("Available", true);
