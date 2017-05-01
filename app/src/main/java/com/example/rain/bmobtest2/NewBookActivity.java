@@ -564,7 +564,7 @@ public class NewBookActivity extends Activity {
                 int c = Integer.parseInt(mudye);
                 int d = Integer.parseInt(curye);
 
-                if(c > d && a > b) {
+                if(c >= d && a > b) {
                     //Toast.makeText(NewBookActivity.this, "可以", Toast.LENGTH_LONG).show();
                     BmobQuery<EqBookTime> query = new BmobQuery<EqBookTime>();
                     query.addWhereEqualTo("EqID", bookRecord.getEqID());
