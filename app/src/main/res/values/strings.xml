@@ -45,5 +45,7 @@
     <string name="booked_btn">已约</string>
     <string name="type_btn">分类</string>
 
+    <string name="user_money">我的钱包:</string>
+
 
 </resources>

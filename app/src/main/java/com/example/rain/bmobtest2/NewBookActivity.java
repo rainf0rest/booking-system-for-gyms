@@ -626,8 +626,16 @@ public class NewBookActivity extends Activity {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 User user = BmobUser.getCurrentUser(User.class);
+                                int mudH = (which + 7)* 10000;
+                                SimpleDateFormat    sDateFormat1    =   new SimpleDateFormat("HHmmss");
+                                String    cur   =    sDateFormat1.format(new    java.util.Date());
+                                int d = Integer.parseInt(cur);
                                 if(user.getMoney() < p) {
                                     Toast.makeText(NewBookActivity.this, "余额不足请及时充值", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                                else if(mudH < d){
+                                    Toast.makeText(NewBookActivity.this, "预约时段超时，不可预约", Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
                                 }
                                 else {

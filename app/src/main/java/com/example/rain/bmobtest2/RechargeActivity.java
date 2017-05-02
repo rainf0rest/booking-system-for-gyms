@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.bmob.v3.BmobUser;
@@ -21,6 +22,7 @@ public class RechargeActivity extends Activity {
 
     private Button rechargebtn;
     private EditText rechargeMoney;
+    private TextView textViewMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,10 @@ public class RechargeActivity extends Activity {
 
         rechargebtn = (Button) findViewById(R.id.btn_recharge_ok);
         rechargeMoney = (EditText) findViewById(R.id.et_recharge_money);
+        textViewMoney = (TextView) findViewById(R.id.textview_recharge_money);
+
+        User user = BmobUser.getCurrentUser(User.class);
+        textViewMoney.setText("    " + user.getMoney() + "元");
 
         rechargebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +49,7 @@ public class RechargeActivity extends Activity {
                     final User newUser = BmobUser.getCurrentUser(User.class);
                     final String logid = newUser.getObjectId();
                     final String logContent = temp + "元";
+                    final int m = newUser.getMoney() + money;
                     newUser.setMoney(newUser.getMoney() + money);
                     newUser.update(newUser.getObjectId(), new UpdateListener() {
                         @Override
@@ -58,6 +65,7 @@ public class RechargeActivity extends Activity {
 
                                     }
                                 });
+                                textViewMoney.setText("    " + m + "元");
                                 Toast.makeText(RechargeActivity.this, "充值成功", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(RechargeActivity.this, "充值失败"  + newUser.getObjectId(), Toast.LENGTH_SHORT).show();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -24,19 +25,21 @@ import cn.bmob.v3.listener.FindListener;
 
 public class ChooseActivity extends Activity {
 
-    private TextView noteTextView;
+    //private TextView noteTextView;
     private Button toBookbtn, toRechargebtn, toMyUserbtn;
     private Handler myWorkHandle;
+    private TipView tipView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_choose_layout);
 
-        noteTextView = (TextView) findViewById(R.id.textview_note);
+        //noteTextView = (TextView) findViewById(R.id.textview_note);
         toBookbtn = (Button) findViewById(R.id.goto_book);
         toRechargebtn = (Button) findViewById(R.id.goto_recharge);
         toMyUserbtn = (Button) findViewById(R.id.goto_userdata);
+        tipView = (TipView) findViewById(R.id.tip_view);
 
         //noteTextView.setMovementMethod(ScrollingMovementMethod.getInstance());
 
@@ -64,14 +67,17 @@ public class ChooseActivity extends Activity {
                 super.handleMessage(msg);
                 if (msg.what == 0x601) {
                     List<Note> list = (List<Note>) msg.obj;
-                    noteTextView.setText("");
+                    //noteTextView.setText("");
+                    List<String> tips = new ArrayList<String>();
                     int i = 1;
                     for(Note note: list) {
-                        noteTextView.append("通知" + i + ":");
-                        noteTextView.append(note.getContent());
-                        noteTextView.append("\n");
+                        //noteTextView.append("通知" + i + ":");
+                        //noteTextView.append(note.getContent());
+                        //noteTextView.append("\n");
+                        tips.add("通知" + i + ":" + note.getContent());
                         i++;
                     }
+                    tipView.setTipList(tips);
                 }
             }
         };
