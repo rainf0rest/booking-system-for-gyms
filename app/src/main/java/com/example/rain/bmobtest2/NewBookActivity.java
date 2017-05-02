@@ -83,12 +83,7 @@ public class NewBookActivity extends Activity {
         bookbtn.setBackground(shape2);
         bookedbtn.setBackground(shape1);
 
-        Message msg = myWorkHandle.obtainMessage();
-        msg.what = 0x701;
-        Bundle bundle = new Bundle();
-        bundle.putInt("data", 0);
-        msg.setData(bundle);
-        myWorkHandle.sendMessage(msg);
+        findAllBookList();
 
     }
 
