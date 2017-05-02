@@ -21,9 +21,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,10 +39,10 @@ import cn.bmob.v3.socketio.callback.StringCallback;
 
 public class NewBookActivity extends Activity {
 
-    private Button bookbtn, bookedbtn;
+    private Button bookbtn, bookedbtn, findbtn;
     private EditText dateEditText;
     private TextView textView;
-    private NiceSpinner niceSpinner;
+    //private NiceSpinner niceSpinner;
     ImageView imageBack;
     private ListView bookListView;
     private AlertDialog.Builder builder;
@@ -103,8 +101,8 @@ public class NewBookActivity extends Activity {
 
         bookbtn = (Button) findViewById(R.id.book_btn);
         bookedbtn = (Button) findViewById(R.id.booked_btn);
-        niceSpinner = (NiceSpinner) findViewById(R.id.nice_spinner);
-        //findbtn = (Button) findViewById(R.id.type_btn);
+       // niceSpinner = (NiceSpinner) findViewById(R.id.nice_spinner);
+        findbtn = (Button) findViewById(R.id.type_btn);
         //dateEditText = (EditText) findViewById(R.id.eqID);
         //textView = (TextView) findViewById(R.id.test);
         //imageBack = (ImageView) findViewById(R.id.backImageBack);
@@ -143,40 +141,7 @@ public class NewBookActivity extends Activity {
             }
         });
 
-        List<String> dataset = new LinkedList(Arrays.asList(equipmentType));
-        niceSpinner.attachDataSource(dataset);
-        //设置监听
-        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int position, long id) {
-                //System.out.println("niceSpinner:position="+position+"  ="+id);
-                Message msg = myWorkHandle.obtainMessage();
-                if(flag == true) {
-                    //book
-                    //findDia();
-                    msg.what = 0x701;
-                }
-                else{
-                    //booked
-                    //findDiax();
-                    msg.what = 0x705;
 
-                }
-                Bundle bundle = new Bundle();
-                bundle.putInt("data", position);
-                msg.setData(bundle);
-                myWorkHandle.sendMessage(msg);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {//没用到该方法
-
-            }
-
-        });
-
-        /*
         findbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,7 +156,7 @@ public class NewBookActivity extends Activity {
                 }
             }
         });
-        */
+
 
         myWorkHandle = new Handler() {
             @Override
