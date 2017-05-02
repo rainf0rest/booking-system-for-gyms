@@ -21,7 +21,9 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +41,10 @@ import cn.bmob.v3.socketio.callback.StringCallback;
 
 public class NewBookActivity extends Activity {
 
-    private Button bookbtn, bookedbtn, findbtn;
+    private Button bookbtn, bookedbtn;
     private EditText dateEditText;
     private TextView textView;
+    private NiceSpinner niceSpinner;
     ImageView imageBack;
     private ListView bookListView;
     private AlertDialog.Builder builder;
@@ -75,6 +78,22 @@ public class NewBookActivity extends Activity {
         }
     }//0x124
 
+    private void initUI() {
+        Resources res = getResources( );
+        Drawable shape1 = res.getDrawable(R.drawable.shape_normal);
+        Drawable shape2 = res.getDrawable(R.drawable.shape_pressed);
+        bookbtn.setBackground(shape2);
+        bookedbtn.setBackground(shape1);
+
+        Message msg = myWorkHandle.obtainMessage();
+        msg.what = 0x701;
+        Bundle bundle = new Bundle();
+        bundle.putInt("data", 0);
+        msg.setData(bundle);
+        myWorkHandle.sendMessage(msg);
+
+    }
+
 
 
     @Override
@@ -84,7 +103,8 @@ public class NewBookActivity extends Activity {
 
         bookbtn = (Button) findViewById(R.id.book_btn);
         bookedbtn = (Button) findViewById(R.id.booked_btn);
-        findbtn = (Button) findViewById(R.id.type_btn);
+        niceSpinner = (NiceSpinner) findViewById(R.id.nice_spinner);
+        //findbtn = (Button) findViewById(R.id.type_btn);
         //dateEditText = (EditText) findViewById(R.id.eqID);
         //textView = (TextView) findViewById(R.id.test);
         //imageBack = (ImageView) findViewById(R.id.backImageBack);
@@ -123,6 +143,40 @@ public class NewBookActivity extends Activity {
             }
         });
 
+        List<String> dataset = new LinkedList(Arrays.asList(equipmentType));
+        niceSpinner.attachDataSource(dataset);
+        //设置监听
+        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int position, long id) {
+                //System.out.println("niceSpinner:position="+position+"  ="+id);
+                Message msg = myWorkHandle.obtainMessage();
+                if(flag == true) {
+                    //book
+                    //findDia();
+                    msg.what = 0x701;
+                }
+                else{
+                    //booked
+                    //findDiax();
+                    msg.what = 0x705;
+
+                }
+                Bundle bundle = new Bundle();
+                bundle.putInt("data", position);
+                msg.setData(bundle);
+                myWorkHandle.sendMessage(msg);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {//没用到该方法
+
+            }
+
+        });
+
+        /*
         findbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,6 +191,7 @@ public class NewBookActivity extends Activity {
                 }
             }
         });
+        */
 
         myWorkHandle = new Handler() {
             @Override
@@ -178,7 +233,8 @@ public class NewBookActivity extends Activity {
                                         //int inId = object.get(i).getEqInID();
                                         String id = list.get(i).getObjectId();
                                         //Toast.makeText(NewBookActivity.this, "1器材id是：" + id, Toast.LENGTH_SHORT).show();
-                                        String na = list.get(i).getEqName() + "" + list.get(i).getEqID() + "-" + list.get(i).getEqInID();
+                                        String na = list.get(i).getEqName();
+                                        String xId = list.get(i).getEqID() + "-" + list.get(i).getEqInID();
                                         int pri = list.get(i).getEqprice();
 
                                         Message msg = myWorkHandle.obtainMessage();
@@ -186,6 +242,7 @@ public class NewBookActivity extends Activity {
                                         Bundle bundle = new Bundle();
                                         bundle.putString("data", id);
                                         bundle.putString("eqname", na);
+                                        bundle.putString("eqxId", xId);
                                         bundle.putInt("price", pri);
                                         msg.setData(bundle);
                                         myWorkHandle.sendMessage(msg);
@@ -204,26 +261,29 @@ public class NewBookActivity extends Activity {
                 else if(msg.what == 0x702) {
                     String id = msg.getData().getString("data");
                     String na = msg.getData().getString("eqname");
+                    String xId = msg.getData().getString("eqxId");
                     int pri = msg.getData().getInt("price");
                     //Toast.makeText(NewBookActivity.this, "0x702", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(NewBookActivity.this, "2器材id是：" + id, Toast.LENGTH_SHORT).show();
-                    getcurTimes(id, na, pri);
+                    getcurTimes(id, na, pri, xId);
                 }
                 else if(msg.what == 0x703) {
                     String[] temp = (String[]) msg.obj;
                     String id = msg.getData().getString("data");
                     String eqid = msg.getData().getString("eqid");
                     String na = msg.getData().getString("eqname");
+                    String xId = msg.getData().getString("eqxId");
                     int pri = msg.getData().getInt("price");
                     //Toast.makeText(NewBookActivity.this, "0x703", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(NewBookActivity.this, "4器材id是：" + id, Toast.LENGTH_SHORT).show();
-                    showBookDia(id, temp, na, eqid, pri);
+                    showBookDia(id, temp, na, eqid, pri, xId);
                 }
                 else if(msg.what == 0x704) {
                     int i = msg.getData().getInt("data");
                     String s = msg.getData().getString("id");
                     String st = msg.getData().getString("timeid");
                     String na = msg.getData().getString("eqname");
+                    String xId = msg.getData().getString("eqxId");
                     int pri = msg.getData().getInt("price");
                     User user = BmobUser.getCurrentUser(User.class);
                     EqBookTime eq = new EqBookTime();
@@ -245,6 +305,7 @@ public class NewBookActivity extends Activity {
                     bookRecord.setEqName(na);
                     bookRecord.setTime(Times[i]);
                     bookRecord.setEqID(s);
+                    bookRecord.setEqxID(xId);
                     bookRecord.setPrice(pri);
                     SimpleDateFormat sDateFormat    =   new SimpleDateFormat("yyyyMMdd");
                     String    date    =    sDateFormat.format(new    java.util.Date());
@@ -406,6 +467,8 @@ public class NewBookActivity extends Activity {
         calThread = new NewBookActivity.CalThread();
         calThread.start();
 
+        initUI();
+
     }
 
     private void findAllBookList() {
@@ -441,7 +504,8 @@ public class NewBookActivity extends Activity {
                             //int inId = object.get(i).getEqInID();
                             String id = list.get(i).getObjectId();
                             //Toast.makeText(NewBookActivity.this, "1器材id是：" + id, Toast.LENGTH_SHORT).show();
-                            String na = list.get(i).getEqName() + "" + list.get(i).getEqID() + "-" + list.get(i).getEqInID();
+                            String na = list.get(i).getEqName();
+                            String xId = list.get(i).getEqID() + "-" + list.get(i).getEqInID();
                             int pri = list.get(i).getEqprice();
 
                             Message msg = myWorkHandle.obtainMessage();
@@ -449,6 +513,7 @@ public class NewBookActivity extends Activity {
                             Bundle bundle = new Bundle();
                             bundle.putString("data", id);
                             bundle.putString("eqname", na);
+                            bundle.putString("eqxId", xId);
                             bundle.putInt("price", pri);
                             msg.setData(bundle);
                             myWorkHandle.sendMessage(msg);
@@ -617,7 +682,8 @@ public class NewBookActivity extends Activity {
         return t;
     }
 
-    private void showBookDia(final String id, final String[] s, final String na, final String eqid, final int p) {
+    private void showBookDia(final String id, final String[] s, final String na, final String eqid, final int p,
+                             final String xId) {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.operate)
                 .setIcon(R.drawable.ok)
@@ -648,6 +714,7 @@ public class NewBookActivity extends Activity {
                                         bundle.putInt("data", which);
                                         bundle.putString("id", eqid);
                                         bundle.putString("timeid", id);
+                                        bundle.putString("eqxId", xId);
                                         //Toast.makeText(NewBookActivity.this, "5器材id是：" + eqid, Toast.LENGTH_SHORT).show();
                                         bundle.putString("eqname", na);
                                         bundle.putInt("price", p);
@@ -664,7 +731,7 @@ public class NewBookActivity extends Activity {
                         }).setNegativeButton("取消", null).show();
     }
 
-    private void getcurTimes(final String id, final String na, final int p) {
+    private void getcurTimes(final String id, final String na, final int p, final String xId) {
         final String[] mys = new String[15];
         BmobQuery<EqBookTime> query = new BmobQuery<EqBookTime>();
         query.addWhereEqualTo("EqID", id);
@@ -684,6 +751,7 @@ public class NewBookActivity extends Activity {
                     bundle.putString("data", eqBookTime.getObjectId());
                     bundle.putString("eqid", id);
                     bundle.putString("eqname", na);
+                    bundle.putString("eqxId", xId);
                     bundle.putInt("price", p);
                     //Toast.makeText(NewBookActivity.this, "3器材id是：" + id, Toast.LENGTH_SHORT).show();
                     msg.setData(bundle);

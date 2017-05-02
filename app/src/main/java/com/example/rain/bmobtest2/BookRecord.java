@@ -12,10 +12,19 @@ public class BookRecord extends BmobObject {
     private String Time;
     private String date;
     private String EqName;
+    private String EqxID;
     private int Price;
 
     public int getPrice() {
         return Price;
+    }
+
+    public String getEqxID() {
+        return EqxID;
+    }
+
+    public void setEqxID(String eqxID) {
+        EqxID = eqxID;
     }
 
     public void setPrice(int price) {

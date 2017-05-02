@@ -43,8 +43,7 @@
         <EditText
             android:id="@+id/et_recharge_money"
             style="@style/Register_Edit"
-            android:inputType="number"
-            android:hint="@string/btn_recharge_hint" />
+            android:inputType="number" />
     </LinearLayout>
 
 
