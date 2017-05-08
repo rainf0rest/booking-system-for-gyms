@@ -41,6 +41,24 @@
             android:hint="@string/login_password_hint" />
     </LinearLayout>
 
+    <LinearLayout style="@style/Register_Input" >
+
+        <TextView
+            style="@style/Smile_TextView_Black"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/login_pwd"
+            android:textStyle="bold"
+            android:layout_width="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_password_ok"
+            style="@style/Register_Edit"
+            android:inputType="textPassword"
+            android:hint="@string/login_password_hint_2" />
+    </LinearLayout>
+
     <LinearLayout
         style="@style/Register_Input" >
 

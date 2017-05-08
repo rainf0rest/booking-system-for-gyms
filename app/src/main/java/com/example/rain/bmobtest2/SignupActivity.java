@@ -28,9 +28,10 @@ public class SignupActivity extends Activity {
         setContentView(R.layout.signup_new);
 
         regbtn = (Button) findViewById(R.id.btn_register);
-        final EditText userName, userPassword, userEmail;
+        final EditText userName, userPassword, userPassword_2, userEmail;
         userName = (EditText) findViewById(R.id.et_username);
         userPassword = (EditText) findViewById(R.id.et_password);
+        userPassword_2 = (EditText) findViewById(R.id.et_password_ok);
         userEmail = (EditText) findViewById(R.id.et_email);
 
         regbtn.setOnClickListener(new View.OnClickListener() {
@@ -38,10 +39,14 @@ public class SignupActivity extends Activity {
             public void onClick(View view) {
                 String name = userName.getText().toString();
                 String password = userPassword.getText().toString();
+                String password_2 = userPassword_2.getText().toString();
                 String Email = userEmail.getText().toString();
 
                 if(TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
                     Toast.makeText(SignupActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(!password.equals(password_2)) {
+                    Toast.makeText(SignupActivity.this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
