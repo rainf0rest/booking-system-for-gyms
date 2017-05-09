@@ -9,6 +9,15 @@ import cn.bmob.v3.BmobObject;
 public class ChatItem extends BmobObject {
     private String UserID, UserName, Content;
     private int  UserHead, Id;
+    private int Chatdate;
+
+    public int getChatdate() {
+        return Chatdate;
+    }
+
+    public void setChatdate(int chatdate) {
+        Chatdate = chatdate;
+    }
 
     public String getUserID() {
         return UserID;

@@ -9,15 +9,13 @@
             android:id="@+id/et_chat_content"
             style="@style/Register_Edit" />
 
-        <TextView
-            style="@style/Smile_TextView_Black"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text="@string/chat"
-            android:textStyle="bold"
+        <Button
+            android:id="@+id/chat_btn"
+            style="@style/Smile_Button_theme"
             android:layout_width="wrap_content"
-            android:id="@+id/chat_btn"/>
+            android:textSize="@dimen/btn_choose_text"
+            android:layout_height="wrap_content"
+            android:text="@string/chat"/>
     </LinearLayout>
 
     <ListView

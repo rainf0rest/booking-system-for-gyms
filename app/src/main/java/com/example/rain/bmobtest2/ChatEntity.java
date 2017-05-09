@@ -8,6 +8,15 @@ public class ChatEntity {
     private int mType;
     private String mText;
     private int mPic;
+    private String mName;
+
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
 
     public int getmType() {
         return mType;

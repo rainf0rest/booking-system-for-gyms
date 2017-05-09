@@ -6,20 +6,45 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/chat_in_image"
-        style="@style/Smile_ImageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:padding="5dp"
-        android:src="@drawable/head" />
-
-    <TextView
-        android:id="@+id/chat_in_text"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/chatitem_in_bg"
-        android:gravity="center"
-        android:textSize="15sp" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/chat_in_image"
+            style="@style/Smile_ImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:padding="5dp"
+            android:src="@drawable/head" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/chat_in_image">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/chat_in_name"
+                android:layout_gravity="left"
+                android:text="idxx"/>
+
+            <TextView
+                android:id="@+id/chat_in_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chatitem_in_bg"
+                android:gravity="center"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
 
 </LinearLayout>

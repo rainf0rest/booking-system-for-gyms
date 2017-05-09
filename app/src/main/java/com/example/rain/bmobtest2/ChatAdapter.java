@@ -47,6 +47,7 @@ public class ChatAdapter extends MyBaseAdapter {
                         .findViewById(R.id.chat_in_image);
                 viewHolder.mTextView = (TextView) convertView
                         .findViewById(R.id.chat_in_text);
+                viewHolder.mTextViewOfName = (TextView) convertView.findViewById(R.id.chat_in_name);
             } else {
                 viewHolder = new ViewHolder();
                 convertView = mInflater.inflate(R.layout.chat_out_item, null);
@@ -54,6 +55,7 @@ public class ChatAdapter extends MyBaseAdapter {
                         .findViewById(R.id.chat_out_image);
                 viewHolder.mTextView = (TextView) convertView
                         .findViewById(R.id.chat_out_text);
+                viewHolder.mTextViewOfName = (TextView) convertView.findViewById(R.id.chat_out_name);
             }
             convertView.setTag(viewHolder);
 
@@ -63,11 +65,13 @@ public class ChatAdapter extends MyBaseAdapter {
         viewHolder.mImageView.setImageResource(mChatData.get(position)
                 .getmPic());
         viewHolder.mTextView.setText(mChatData.get(position).getmText());
+        viewHolder.mTextViewOfName.setText(mChatData.get(position).getmName());
         return convertView;
     }
 
     public class ViewHolder {
         public ImageView mImageView;
         public TextView mTextView;
+        public TextView mTextViewOfName;
     }
 }
