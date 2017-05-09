@@ -15,48 +15,61 @@
         android:layout_height="wrap_content" />
 
     <RelativeLayout
-        android:id="@+id/layout_goto_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/about_mid_bg"
-        android:padding="10dp" >
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/goto_book"
+            style="@style/Smile_Button_theme"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:orientation="horizontal" >
+            android:layout_height="45dp"
+            android:textSize="@dimen/btn_choose_text"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/btn_choose"
+            android:text="@string/goto_book" />
 
-            <Button
-                android:id="@+id/goto_book"
-                style="@style/Smile_Button_theme"
-                android:layout_width="@dimen/half_screen_width"
-                android:layout_height="@dimen/half_screen_heigh"
-                android:layout_weight="1"
-                android:text="@string/goto_book" />
 
-            <Button
-                android:id="@+id/goto_recharge"
-                style="@style/Smile_Button_theme"
-                android:layout_width="@dimen/half_screen_width"
-                android:layout_height="@dimen/half_screen_heigh"
-                android:layout_weight="1"
-                android:text="@string/goto_recharge"/>
+        <Button
+            android:id="@+id/goto_recharge"
+            style="@style/Smile_Button_theme"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/btn_choose_text"
+            android:layout_height="45dp"
+            android:layout_below="@+id/goto_book"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/btn_choose"
+            android:text="@string/goto_recharge"/>
 
-        </LinearLayout>
+        <Button
+            android:id="@+id/goto_chat"
+            style="@style/Smile_Button_theme"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/btn_choose_text"
+            android:layout_height="45dp"
+            android:layout_below="@+id/goto_recharge"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/btn_choose"
+            android:text="@string/goto_chat"/>
+
+
+        <Button
+            android:id="@+id/goto_userdata"
+            style="@style/Smile_Button_logout"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/btn_choose_text"
+            android:layout_height="45dp"
+            android:layout_below="@+id/goto_chat"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/btn_choose_2"
+            android:text="@string/goto_userdata" />
 
 
     </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/goto_userdata"
-        style="@style/Smile_Button_logout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/goto_userdata" />
 
 </LinearLayout>

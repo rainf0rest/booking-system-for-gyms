@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             });
-                            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, ChooseActivity.class);
                             startActivity(intent);
                             //toast("登录成功:");

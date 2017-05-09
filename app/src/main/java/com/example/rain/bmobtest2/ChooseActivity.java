@@ -26,7 +26,7 @@ import cn.bmob.v3.listener.FindListener;
 public class ChooseActivity extends Activity {
 
     //private TextView noteTextView;
-    private Button toBookbtn, toRechargebtn, toMyUserbtn;
+    private Button toBookbtn, toRechargebtn, toMyUserbtn, toChat;
     private Handler myWorkHandle;
     private TipView tipView;
 
@@ -40,6 +40,7 @@ public class ChooseActivity extends Activity {
         toRechargebtn = (Button) findViewById(R.id.goto_recharge);
         toMyUserbtn = (Button) findViewById(R.id.goto_userdata);
         tipView = (TipView) findViewById(R.id.tip_view);
+        toChat = (Button) findViewById(R.id.goto_chat);
 
         //noteTextView.setMovementMethod(ScrollingMovementMethod.getInstance());
 
@@ -107,6 +108,14 @@ public class ChooseActivity extends Activity {
                 //Toast.makeText(ChooseActivity.this, "success to User Data System!", Toast.LENGTH_SHORT).show();
                 //Intent intent = new Intent(ChooseActivity.this, MyUserActivity.class);
                 Intent intent = new Intent(ChooseActivity.this, NewUserDataActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        toChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChooseActivity.this, ChatActivity.class);
                 startActivity(intent);
             }
         });

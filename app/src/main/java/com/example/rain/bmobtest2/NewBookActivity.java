@@ -96,7 +96,7 @@ public class NewBookActivity extends Activity {
 
         bookbtn = (Button) findViewById(R.id.book_btn);
         bookedbtn = (Button) findViewById(R.id.booked_btn);
-       // niceSpinner = (NiceSpinner) findViewById(R.id.nice_spinner);
+        // niceSpinner = (NiceSpinner) findViewById(R.id.nice_spinner);
         findbtn = (Button) findViewById(R.id.type_btn);
         //dateEditText = (EditText) findViewById(R.id.eqID);
         //textView = (TextView) findViewById(R.id.test);
@@ -323,7 +323,7 @@ public class NewBookActivity extends Activity {
                                     }
                                     else {
                                         Map<String, Object> listem = new HashMap<String, Object>();
-                                        listem.put("EqName", "" + bookRecord.getEqName());
+                                        listem.put("EqName", "" + bookRecord.getEqName() + bookRecord.getEqxID());
                                         //Toast.makeText(NewBookActivity.this, equipmentName, Toast.LENGTH_SHORT).show();
 
                                         listem.put("Time", "时段:" + bookRecord.getTime());
@@ -501,7 +501,7 @@ public class NewBookActivity extends Activity {
                 if(e == null) {
                     for(BookRecord bookRecord : list) {
                         Map<String, Object> listem = new HashMap<String, Object>();
-                        listem.put("EqName", "" + bookRecord.getEqName());
+                        listem.put("EqName", "" + bookRecord.getEqName() + bookRecord.getEqxID());
                         //Toast.makeText(NewBookActivity.this, equipmentName, Toast.LENGTH_SHORT).show();
 
                         listem.put("Time", "时段:" + bookRecord.getTime());

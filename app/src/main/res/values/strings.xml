@@ -36,6 +36,10 @@
     <string name="goto_book">预约</string>
     <string name="goto_recharge">充值</string>
     <string name="goto_userdata">个人信息</string>
+    <string name="goto_chat">聊天室</string>
+
+    <string name="chat">发言</string>
+
 
     <string name="recharge_money">充值金额：</string>
     <string name="recharge_btn">充值</string>
@@ -45,6 +49,7 @@
     <string name="book_btn">预约</string>
     <string name="booked_btn">已约</string>
     <string name="type_btn">分类</string>
+    <string name="dayz_btn">日段</string>
 
     <string name="user_money">我的钱包:</string>
 
