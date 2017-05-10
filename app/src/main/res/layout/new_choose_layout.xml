@@ -56,16 +56,29 @@
 
 
         <Button
-            android:id="@+id/goto_userdata"
+        android:id="@+id/goto_userdata"
+        style="@style/Smile_Button_logout"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/btn_choose_text"
+        android:layout_height="45dp"
+        android:layout_below="@+id/goto_chat"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/btn_choose_2"
+        android:text="@string/goto_userdata" />
+
+
+        <Button
+            android:id="@+id/goto_test"
             style="@style/Smile_Button_logout"
             android:layout_width="match_parent"
             android:textSize="@dimen/btn_choose_text"
             android:layout_height="45dp"
-            android:layout_below="@+id/goto_chat"
+            android:layout_below="@+id/goto_userdata"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/btn_choose_2"
-            android:text="@string/goto_userdata" />
+            android:layout_marginTop="@dimen/btn_choose"
+            android:text="test" />
 
 
     </RelativeLayout>

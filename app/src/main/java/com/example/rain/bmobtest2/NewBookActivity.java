@@ -19,15 +19,20 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -233,10 +238,11 @@ public class NewBookActivity extends Activity {
                     String eqid = msg.getData().getString("eqid");
                     String na = msg.getData().getString("eqname");
                     String xId = msg.getData().getString("eqxId");
+                    String keyId = msg.getData().getString("keyID");
                     int pri = msg.getData().getInt("price");
                     //Toast.makeText(NewBookActivity.this, "0x703", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(NewBookActivity.this, "4器材id是：" + id, Toast.LENGTH_SHORT).show();
-                    showBookDia(id, temp, na, eqid, pri, xId);
+                    showBookDia(id, temp, na, eqid, pri, xId, keyId);
                 }
                 else if(msg.what == 0x704) {
                     int i = msg.getData().getInt("data");
@@ -244,7 +250,9 @@ public class NewBookActivity extends Activity {
                     String st = msg.getData().getString("timeid");
                     String na = msg.getData().getString("eqname");
                     String xId = msg.getData().getString("eqxId");
+                    String keyId = msg.getData().getString("keyId");
                     int pri = msg.getData().getInt("price");
+                    int index = msg.getData().getInt("index");
                     User user = BmobUser.getCurrentUser(User.class);
                     EqBookTime eq = new EqBookTime();
                     BookRecord bookRecord = new BookRecord();
@@ -277,6 +285,9 @@ public class NewBookActivity extends Activity {
 
                         }
                     });
+
+                    rekey(keyId, index);
+
 
                     int tp = user.getMoney() - pri;
                     user.setMoney(tp);
@@ -416,8 +427,13 @@ public class NewBookActivity extends Activity {
 
                 }
                 else if(msg.what == 0x707) {
-                    //refresh booked
-                    //int te = msg.getData().getInt("data");
+                    int i = msg.getData().getInt("data");
+                    String s = msg.getData().getString("id");
+                    String st = msg.getData().getString("timeid");
+                    String na = msg.getData().getString("eqname");
+                    String xId = msg.getData().getString("eqxId");
+                    int pri = msg.getData().getInt("price");
+
 
                 }
 
@@ -643,14 +659,14 @@ public class NewBookActivity extends Activity {
     }
 
     private void showBookDia(final String id, final String[] s, final String na, final String eqid, final int p,
-                             final String xId) {
+                             final String xId, final String keyId) {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.operate)
                 .setIcon(R.drawable.ok)
                 .setSingleChoiceItems(s, 0,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
-                                                int which) {
+                                                final int which) {
                                 User user = BmobUser.getCurrentUser(User.class);
                                 int mudH = (which + 7)* 10000;
                                 SimpleDateFormat    sDateFormat1    =   new SimpleDateFormat("HHmmss");
@@ -665,25 +681,61 @@ public class NewBookActivity extends Activity {
                                     dialog.dismiss();
                                 }
                                 else {
-                                    String ts = Times[which] + "可约";
-                                    if(s[which].equals(ts)){
-                                        //Toast.makeText(NewBookActivity.this, "可约", Toast.LENGTH_SHORT).show();
-                                        Message msg = myWorkHandle.obtainMessage();
-                                        msg.what = 0x704;
-                                        Bundle bundle = new Bundle();
-                                        bundle.putInt("data", which);
-                                        bundle.putString("id", eqid);
-                                        bundle.putString("timeid", id);
-                                        bundle.putString("eqxId", xId);
-                                        //Toast.makeText(NewBookActivity.this, "5器材id是：" + eqid, Toast.LENGTH_SHORT).show();
-                                        bundle.putString("eqname", na);
-                                        bundle.putInt("price", p);
-                                        msg.setData(bundle);
-                                        myWorkHandle.sendMessage(msg);
+
+                                    String cloudCodeName = "key_of_eqTime";
+                                    JSONObject params = new JSONObject();
+                                    //name是上传到云端的参数名称，值是bmob，云端逻辑可以通过调用request.body.name获取这个值
+                                    try {
+                                        params.put("id", keyId);
+                                        params.put("index", which);
                                     }
-                                    else {
-                                        Toast.makeText(NewBookActivity.this,  s[which], Toast.LENGTH_SHORT).show();
+                                    catch (JSONException e) {
+                                        Toast.makeText(NewBookActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                                     }
+                                    //创建云端逻辑对象
+                                    AsyncCustomEndpoints cloudCode = new AsyncCustomEndpoints();
+                                    //异步调用云端逻辑
+                                    cloudCode.callEndpoint(cloudCodeName, params, new CloudCodeListener() {
+                                        @Override
+                                        public void done(Object o, BmobException e) {
+                                            if(e == null) {
+                                                if(o.toString().equals("ok")) {
+                                                    String ts = Times[which] + "可约";
+                                                    if(s[which].equals(ts)){
+                                                        //Toast.makeText(NewBookActivity.this, "可约", Toast.LENGTH_SHORT).show();
+                                                        Message msg = myWorkHandle.obtainMessage();
+                                                        msg.what = 0x704;
+                                                        Bundle bundle = new Bundle();
+                                                        bundle.putInt("data", which);
+                                                        bundle.putString("id", eqid);
+                                                        bundle.putString("timeid", id);
+                                                        bundle.putString("eqxId", xId);
+                                                        bundle.putString("keyId", keyId);
+                                                        //Toast.makeText(NewBookActivity.this, "5器材id是：" + eqid, Toast.LENGTH_SHORT).show();
+                                                        bundle.putString("eqname", na);
+                                                        bundle.putInt("price", p);
+                                                        bundle.putInt("index", which);
+                                                        msg.setData(bundle);
+                                                        myWorkHandle.sendMessage(msg);
+                                                    }
+                                                    else {
+                                                        rekey(keyId, which);
+                                                        Toast.makeText(NewBookActivity.this,  s[which], Toast.LENGTH_SHORT).show();
+                                                    }
+
+
+                                                    Toast.makeText(NewBookActivity.this, "get Key", Toast.LENGTH_SHORT).show();
+                                                }
+                                                else {
+                                                    Toast.makeText(NewBookActivity.this, "nokey" + "\n" + o.toString(), Toast.LENGTH_SHORT).show();
+                                                }
+
+                                            }else {
+                                                Toast.makeText(NewBookActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
                                     dialog.dismiss();
                                 }
 
@@ -713,6 +765,7 @@ public class NewBookActivity extends Activity {
                     bundle.putString("eqname", na);
                     bundle.putString("eqxId", xId);
                     bundle.putInt("price", p);
+                    bundle.putString("keyID", eqBookTime.getKeyID());
                     //Toast.makeText(NewBookActivity.this, "3器材id是：" + id, Toast.LENGTH_SHORT).show();
                     msg.setData(bundle);
                     msg.obj = mys;
@@ -725,5 +778,36 @@ public class NewBookActivity extends Activity {
         });
     }
 
+    private void rekey(final String id, final int index) {
+        String cloudCodeName = "re_key_of_eqTime";
+        JSONObject params = new JSONObject();
+        //name是上传到云端的参数名称，值是bmob，云端逻辑可以通过调用request.body.name获取这个值
+        try {
+            params.put("id", id);
+            params.put("index", index);
+        }
+        catch (JSONException e) {
+            Toast.makeText(NewBookActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        //创建云端逻辑对象
+        AsyncCustomEndpoints cloudCode = new AsyncCustomEndpoints();
+        //异步调用云端逻辑
+        cloudCode.callEndpoint(cloudCodeName, params, new CloudCodeListener() {
+            @Override
+            public void done(Object o, BmobException e) {
+                if(e == null) {
+                    if(o.toString().equals("ok")) {
+                        Toast.makeText(NewBookActivity.this, "return key", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(NewBookActivity.this, "fail" + "\n" + id + "\n" + index, Toast.LENGTH_SHORT).show();
+                    }
+
+                }else {
+                    Toast.makeText(NewBookActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
 }
